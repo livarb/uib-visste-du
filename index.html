@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="style.css" />
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <script>
+        function fetchNewFunfact(studieprog = 0) {
+        	var apiUrl = "http://breim.net/livar/pensum/rest/v2/visste_du/";
+        	if (studieprog !== 0) {
+        		apiUrl += "?studieprog=" + studieprog;
+        	}
+
+			jQuery.ajax({
+				url: apiUrl,
+				jsonp: 'jsoncallback',
+				contentType: "application/json",
+				dataType: "jsonp",
+				success: function(data) {
+					var ff = data[0];
+
+					// https://css-tricks.com/snippets/javascript/strip-html-tags-in-javascript/
+					var tekstRaw = ff.b_re_visst;
+					var div = document.createElement("div");
+					div.innerHTML = tekstRaw;
+					var tekst = div.textContent || div.innerText || "";
+
+					$('#tekst').html(tekst);
+					$('#subtitle').html(
+						'<a href="' + ff.url + '">'
+						+ ff.title_no + '</a>'
+						+ ' på <a href="http://www.uib.no">UiB</a>'
+					);
+					location.hash = ff.id;
+				},
+				error: function(data) {
+					$('#tekst').html("Feil ved lasting. Prøv att seinare.");
+				}
+			});
+		}
+
+		function showAbout() {
+			$('#subtitle').html("");
+			$('#tekst').html('Denne vesle webappen er laga med <a href="http://data.uib.no/">opne data frå UiB</a>? Opne data er maskinlesbare data som kan brukast fritt. Appen er laga av ein tidlegare UiB-student, <a href="http://twitter.com/livarb/">Livar Bergheim</a>.');
+		}		
+        </script>
+
+		<div class="centered" id="main">
+			<div id="overskrift">Visste du at? <button id="knapp" onClick="fetchNewFunfact()">Hent ny</button></div>
+
+			<div id="tekst"></div>
+
+			<div id="subtitle"><i><span id="studieprogram"></span></i></div>
+		</div>
+
+		<div id="bottomText"><a href="#" onClick="showAbout()">Om</a></div>
+
+        <script>
+        // MAIN
+        // $('#tekst').html("* Lastar inn *");
+        var studieprog = location.hash.slice(1); // http://lea.verou.me/2011/05/get-your-hash-the-bulletproof-way/
+        if (studieprog !== "") {
+        	fetchNewFunfact(studieprog);
+        } else {
+        	fetchNewFunfact();
+    	}
+        </script>
+
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            // (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            // function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            // e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            // e.src='//www.google-analytics.com/analytics.js';
+            // r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            // ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+    </body>
+</html>

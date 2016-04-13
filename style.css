@@ -1,0 +1,43 @@
+/* Styles go here */
+
+a {
+	text-decoration: none;
+}
+#tekst {
+	width: 600px;
+	font-size: 24pt;
+}
+#main {
+	float: center;
+}
+#subtitle {
+	font-size: 16pt;
+	margin-top: 20px;
+}
+#knapp {
+	float: right;
+	margin-right: 50px;
+	margin-top: 14px;
+	font-size: 12pt;
+}
+#overskrift {
+	font-size: 32pt;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+.centered{
+    position:absolute;
+    width:600px;
+    height:500px;
+    left:35%;
+    top:25%;
+    margin-left:-50px;
+    margin-top:-50px;
+}
+#bottomText {
+	position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 5px;
+    margin-bottom: 2px;
+}
