@@ -48,15 +48,17 @@
 						+ ' ved <a href="http://www.uib.no">UiB</a>'
 					);
 					location.hash = ff.id;
+					ga('send', 'event', 'showFunFact', 'success', ff.id);
 				},
 				error: function(data) {
 					$('#tekst').html("Feil ved lasting. Prøv att seinare.");
+					ga('send', 'event', 'showFunFact', 'error');
 				}
 			});
 		}
 
 		function showAbout() {
-			$('#tekst').html('Denne vesle webappen er laga med <a href="http://data.uib.no/">opne data frå UiB</a>? Appen er laga av ein tidlegare UiB-student, <a href="http://twitter.com/livarb/">Livar Bergheim</a>. Berre 84 av 196 studieprogram ved UiB har ein slik funfact-tekst pr. 13/4. <a href="https://github.com/livarb/uib-visste-du">Kjeldekoden er tilgjengeleg på Github</a>.');
+			$('#tekst').html('<ul><li>Denne vesle webappen er laga med <a href="http://data.uib.no/">opne data frå UiB</a> <li>Appen er laga av ein tidlegare UiB-student, <a href="http://twitter.com/livarb/">Livar Bergheim</a>. <li>Berre 84 av 196 studieprogram ved UiB har ein slik funfact-tekst pr. 13/4. <li><a href="https://github.com/livarb/uib-visste-du">Kjeldekoden er tilgjengeleg på Github</a>.</ul>');
 			$('#subtitle').html(
 				'Inneholder data under <a href="http://data.norge.no/">Norsk lisens for offentlige data (NLOD)</a> tilgjengeliggjort av <a href="http://data.uib.no/">Universitetet i Bergen</a>'
 				);
