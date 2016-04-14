@@ -37,8 +37,8 @@ a {
 #bottomText {
 	position: absolute;
     bottom: 0;
-    right: 0;
-    margin-right: 5px;
+    left: 0;
+    margin-left: 5px;
     margin-bottom: 2px;
     font-size: 16pt;
 }
