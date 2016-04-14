@@ -26,7 +26,7 @@
         <![endif]-->
 
         <script>
-        function fetchNewFunfact(studieprog = 0) {
+        function fetchNewFunfact(studieprog) {
         	var apiUrl = "http://breim.net/livar/pensum/rest/v2/visste_du/";
         	if (studieprog !== 0) {
         		apiUrl += "?studieprog=" + studieprog;
@@ -76,7 +76,7 @@
         </script>
 
 		<div class="centered" id="main">
-			<div id="overskrift">Visste du at? <button id="knapp" onClick="fetchNewFunfact()">Hent ny</button></div>
+			<div id="overskrift">Visste du at? <button id="knapp" onClick="fetchNewFunfact(0)">Hent ny</button></div>
 
 			<div id="tekst"></div>
 
@@ -88,11 +88,12 @@
         <script>
         // MAIN
         // $('#tekst').html("* Lastar inn *");
+
         var studieprog = location.hash.slice(1); // http://lea.verou.me/2011/05/get-your-hash-the-bulletproof-way/
         if (studieprog !== "") {
         	fetchNewFunfact(studieprog);
         } else {
-        	fetchNewFunfact();
+        	fetchNewFunfact(0);
     	}
         </script>
 
